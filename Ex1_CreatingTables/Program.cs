@@ -36,7 +36,6 @@ namespace Ex1_CreatingTables
             tables.InsertNewType("Goods For Paperwork");
             tables.InsertNewType("Documentation Storage Products");
             tables.InsertNewType("Goods For Creativity");
-            tables.InsertNewType("Archives And Organizers");
 
         }
 

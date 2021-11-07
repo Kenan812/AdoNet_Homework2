@@ -1,0 +1,63 @@
+﻿<Window x:Class="AdoNet_Homework2.Ex3Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdoNet_Homework2"
+        mc:Ignorable="d"
+        Title="Ex3Window" Height="540.416" Width="800" Closing="Window_Closing">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="317*"/>
+            <ColumnDefinition Width="52*"/>
+            <ColumnDefinition Width="424*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Background="LightGray" Margin="0,0,0.333,-0.333">
+
+            <Button  Name="ex3_1Button" Content="Show all stationary info" Height="60" Width="280" 
+                     HorizontalAlignment="Left" Margin="11,11,0,0" FontSize="17" 
+                     Background="#383838" Foreground="White" Click="ex3_1Button_Click"/>
+
+            <Button Name="ex3_2Button" Content="Show all Types" Height="60" Width="280" 
+                     HorizontalAlignment="Left" Margin="11,11,0,0" FontSize="17" 
+                     Background="#383838" Foreground="White" Click="ex3_2Button_Click"/>
+
+            <Button Name="ex3_3Button" Content="Show all Managers" Height="60" Width="280" 
+                     HorizontalAlignment="Left" Margin="11,11,0,0" FontSize="17" 
+                     Background="#383838" Foreground="White" Click="ex3_3Button_Click"/>
+
+            <Button Name="ex3_4Button" Content="Show max stationary number" Height="60" Width="280" 
+                     HorizontalAlignment="Left" Margin="11,11,0,0" FontSize="17" 
+                     Background="#383838" Foreground="White" Click="ex3_4Button_Click"/>
+
+            <Button Name="ex3_5Button" Content="Show min stationary number" Height="60" Width="280" 
+                     HorizontalAlignment="Left" Margin="11,11,0,0" FontSize="17" 
+                     Background="#383838" Foreground="White" Click="ex3_5Button_Click"/>
+
+            <Button Name="ex3_6Button" Content="Show stationary with lowest cost" Height="60" Width="280" 
+                     HorizontalAlignment="Left" Margin="11,11,0,0" FontSize="17" 
+                     Background="#383838" Foreground="White" Click="ex3_6Button_Click"/>
+
+            <Button Name="ex3_7Button" Content="Show stationary with highest cost" Height="60" Width="280" 
+                     HorizontalAlignment="Left" Margin="11,11,0,0" FontSize="17" 
+                     Background="#383838" Foreground="White" Click="ex3_7Button_Click"/>
+
+        </StackPanel>
+
+
+        <DataGrid Name="tableDataGrid"  Background="#686868" AutoGenerateColumns="True" 
+                  HeadersVisibility="All" Foreground="White" RowBackground="#686868" AlternatingRowBackground="#686868" Grid.ColumnSpan="3" Margin="317,0,0.333,-0.333"                  >
+
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#686868"/>
+                    <Setter Property="Foreground" Value="#B0B0B0"/>
+                </Style>
+            </DataGrid.Resources>
+
+        </DataGrid>
+    </Grid>
+
+</Window>
