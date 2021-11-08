@@ -75,7 +75,14 @@ namespace AdoNet_Homework2
 
         private void homeWorkButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!_isConnected)
+            {
+                MessageBox.Show("Not connected to DB", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            HomeWorkWindow homeWorkWindow = new HomeWorkWindow(_connection);
+            homeWorkWindow.ShowDialog();
         }
     }
 }

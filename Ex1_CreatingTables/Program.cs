@@ -20,7 +20,6 @@ namespace Ex1_CreatingTables
             tablesCreating.CreateManagersTable();
             tablesCreating.CreateSalesTable();
 
-
             tablesCreating.CreateProcedures();
 
             InsertTypes(tablesCreating);

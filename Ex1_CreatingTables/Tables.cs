@@ -175,6 +175,14 @@ namespace Ex1_CreatingTables
 
         public void CreateProcedures()
         {
+            CreateInsertProcedures();
+            CreateDeleteProcedures();
+        
+        }
+
+
+        private void CreateInsertProcedures()
+        {
             SqlConnection connection = new SqlConnection(_connectionString);
 
             string query1 = @"CREATE PROC INSERT_TYPE
@@ -228,7 +236,7 @@ namespace Ex1_CreatingTables
             using (connection)
             {
                 connection.Open();
-                
+
                 try
                 {
                     SqlCommand command1 = new SqlCommand(query1, connection);
@@ -259,6 +267,73 @@ namespace Ex1_CreatingTables
 
             }
         }
+
+
+        private void CreateDeleteProcedures()
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+
+            string query1 = @"CREATE PROC DELETE_TYPE
+                             @Id INT 
+                             AS
+                             BEGIN
+	                             DELETE FROM Types WHERE Id = @Id
+                             END";
+            string query2 = @"CREATE PROC DELETE_STATIONARY
+                             @Id INT 
+                             AS
+                             BEGIN
+	                             DELETE FROM Stationaries WHERE Id = @Id
+                             END";
+            string query3 = @"CREATE PROC DELETE_SALES
+                             @Id INT 
+                             AS
+                             BEGIN
+	                             DELETE FROM Sales WHERE Id = @Id
+                             END";
+            string query4 = @"CREATE PROC DELETE_MANAGERS
+                             @Id INT 
+                             AS
+                             BEGIN
+	                             DELETE FROM Managers WHERE Id = @Id
+                             END";
+
+
+            using (connection)
+            {
+                connection.Open();
+
+                try
+                {
+                    SqlCommand command1 = new SqlCommand(query1, connection);
+                    command1.ExecuteNonQuery();
+                }
+                catch (Exception) { Console.WriteLine("Procedure exists"); }
+
+                try
+                {
+                    SqlCommand command2 = new SqlCommand(query2, connection);
+                    command2.ExecuteNonQuery();
+                }
+                catch (Exception) { Console.WriteLine("Procedure exists"); }
+
+                try
+                {
+                    SqlCommand command3 = new SqlCommand(query3, connection);
+                    command3.ExecuteNonQuery();
+                }
+                catch (Exception) { Console.WriteLine("Procedure exists"); }
+
+                try
+                {
+                    SqlCommand command4 = new SqlCommand(query4, connection);
+                    command4.ExecuteNonQuery();
+                }
+                catch (Exception) { Console.WriteLine("Procedure exists"); }
+            }
+        }
+
+
 
         #endregion
 
