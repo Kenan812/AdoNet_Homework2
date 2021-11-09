@@ -333,7 +333,6 @@ namespace AdoNet_Homework2
         }
 
 
-        // recheck
         private void UpdateSales()
         {
             string customerFirm = textBox1.Text;
@@ -347,23 +346,11 @@ namespace AdoNet_Homework2
             SqlCommand command = new SqlCommand(query, _connection);
             command.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter p1 = new SqlParameter("@customerFirm", SqlDbType.NVarChar);
-            SqlParameter p2 = new SqlParameter("@stationaryId", SqlDbType.Int);
-            SqlParameter p3 = new SqlParameter("@managerId", SqlDbType.Int);
-            SqlParameter p4 = new SqlParameter("@salesDate", SqlDbType.Date);
-            SqlParameter p5 = new SqlParameter("@PurchaseCount", SqlDbType.Int);
-
-            p1.Value = customerFirm;
-            p2.Value = stationaryId;
-            p3.Value = managerId;
-            p4.Value = salesDate;
-            p5.Value = PurchaseCount;
-
-            command.Parameters.Add(p1);
-            command.Parameters.Add(p2);
-            command.Parameters.Add(p3);
-            command.Parameters.Add(p4);
-            command.Parameters.Add(p5);
+            command.Parameters.AddWithValue("@CustomerFirmName", customerFirm);
+            command.Parameters.AddWithValue("@StationaryId", stationaryId);
+            command.Parameters.AddWithValue("@ManagerId", managerId);
+            command.Parameters.AddWithValue("@SaleDate", salesDate);
+            command.Parameters.AddWithValue("@PurchaseCount", PurchaseCount);
 
             command.ExecuteNonQuery();
 
@@ -371,7 +358,6 @@ namespace AdoNet_Homework2
         }
 
 
-        // recheck
         private void UpdateStationary()
         {
             string name = textBox1.Text;
@@ -382,17 +368,10 @@ namespace AdoNet_Homework2
             SqlCommand command = new SqlCommand(query, _connection);
 
             command.CommandType = CommandType.StoredProcedure;
-            SqlParameter p1 = new SqlParameter("@name", SqlDbType.NVarChar);
-            SqlParameter p2 = new SqlParameter("@type", SqlDbType.Int);
-            SqlParameter p3 = new SqlParameter("@price", SqlDbType.Int);
 
-            p1.Value = name;
-            p2.Value = type;
-            p3.Value = price;
-
-            command.Parameters.Add(p1);
-            command.Parameters.Add(p2);
-            command.Parameters.Add(p3);
+            command.Parameters.AddWithValue("@StationaryName", name);
+            command.Parameters.AddWithValue("@StationaryType", type);
+            command.Parameters.AddWithValue("@Price", price);
 
             command.ExecuteNonQuery();
 
