@@ -72,10 +72,39 @@
 
             <Button Name="updateButton" Content="Update Table" Width="200" Height="40" Margin="0,15,0,0" Click="updateButton_Click" IsEnabled="False"/>
 
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+
+                <Button Name="ex4_1button" Content="4.1" Width="90" Margin="10" Click="ex4_1button_Click"/>
+                <Button Name="ex4_2button" Content="4.2" Width="90" Margin="10" Click="ex4_2button_Click"/>
+                <Button Name="ex4_4button" Content="4.4" Width="90" Margin="10" Click="ex4_4button_Click"/>
+                <Button Name="ex4_5button" Content="4.5" Width="90" Margin="10" Click="ex4_5button_Click"/>
+                <Button Name="ex4_6button" Content="4.6" Width="90" Margin="10" Click="ex4_6button_Click"/>
+                <Button Name="ex4_7button" Content="4.7" Width="90" Margin="10" Click="ex4_7button_Click"/>
+
+            </StackPanel>
+
+
+            <StackPanel Orientation="Horizontal">
+
+            </StackPanel>
+
+
 
         </StackPanel>
-        
-        
+
+
+        <DataGrid Grid.Column="1" Name="tableDataGrid"  Background="LightGray" AutoGenerateColumns="True" 
+                  HeadersVisibility="All" Foreground="Black" RowBackground="LightGray" AlternatingRowBackground="LightGray"                  >
+
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </DataGrid.Resources>
+
+        </DataGrid>
+
 
     </Grid>
 </Window>

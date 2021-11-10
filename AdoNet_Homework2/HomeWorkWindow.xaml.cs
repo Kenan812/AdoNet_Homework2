@@ -279,7 +279,6 @@ namespace AdoNet_Homework2
             MessageBox.Show($"Sale succesfully deleted", "Info", MessageBoxButton.OK);
         }
 
-
         private void DeleteStationary()
         {
             string id = textBox1.Text;
@@ -296,7 +295,6 @@ namespace AdoNet_Homework2
 
             MessageBox.Show($"Stationary succesfully deleted", "Info", MessageBoxButton.OK);
         }
-
 
         private void DeleteManager()
         {
@@ -332,7 +330,6 @@ namespace AdoNet_Homework2
             MessageBox.Show($"Type succesfully deleted", "Info", MessageBoxButton.OK);
         }
 
-
         private void UpdateSales()
         {
             string customerFirm = textBox1.Text;
@@ -357,7 +354,6 @@ namespace AdoNet_Homework2
             MessageBox.Show($"Sale succesfully added", "Info", MessageBoxButton.OK);
         }
 
-
         private void UpdateStationary()
         {
             string name = textBox1.Text;
@@ -377,7 +373,6 @@ namespace AdoNet_Homework2
 
             MessageBox.Show($"Stationary succesfully added", "Info", MessageBoxButton.OK);
         }
-
 
         private void UpdateManager()
         {
@@ -423,12 +418,126 @@ namespace AdoNet_Homework2
         }
 
 
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _connection.Close();
         }
 
-       
+        // Lets execute the query
+        private void ExecuteQueryWithNoParameters(string query)
+        {
+            SqlCommand command = new SqlCommand(query, _connection);
+
+            command.ExecuteNonQuery();
+
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+            DataTable dataTable = new DataTable("StationeryFirm");
+            dataAdapter.Fill(dataTable);
+            tableDataGrid.ItemsSource = dataTable.DefaultView;
+            dataAdapter.Update(dataTable);
+        }
+
+        private void ex4_1button_Click(object sender, RoutedEventArgs e)
+        {
+            string query = @"SELECT Managers.FirstName, Managers.LastName, Managers.Age FROM Managers
+                             LEFT JOIN Sales ON Sales.ManagerId = Managers.Id
+                             LEFT JOIN Stationaries ON Stationaries.Id = Sales.StationaryId
+                             GROUP BY Managers.FirstName, Managers.LastName, Managers.Age
+                             HAVING SUM(Stationaries.SoldProductNumber) = (
+	                              SELECT MAX(sums) FROM (
+		                             SELECT SUM(Stationaries.SoldProductNumber) AS sums FROM Stationaries
+		                             LEFT JOIN Sales ON Sales.StationaryId = Stationaries.Id
+		                             LEFT JOIN Managers ON Managers.Id = Sales.ManagerId
+		                             GROUP BY Managers.FirstName
+	                             ) a
+                             )";
+
+            ExecuteQueryWithNoParameters(query);
+        }
+
+        private void ex4_2button_Click(object sender, RoutedEventArgs e)
+        {
+            string query = @"SELECT Managers.FirstName, Managers.LastName, Managers.Age FROM Managers
+                             LEFT JOIN Sales ON Sales.ManagerId = Managers.Id
+                             LEFT JOIN Stationaries ON Stationaries.Id = Sales.StationaryId
+                             GROUP BY Managers.FirstName, Managers.LastName, Managers.Age
+                             HAVING SUM(Stationaries.SoldProductNumber * Stationaries.Price) = (
+ 	                             SELECT MAX(sums) FROM (
+ 		                             SELECT SUM(Stationaries.SoldProductNumber * Stationaries.Price) AS sums FROM Stationaries
+ 		                             LEFT JOIN Sales ON Sales.StationaryId = Stationaries.Id
+ 		                             LEFT JOIN Managers ON Managers.Id = Sales.ManagerId
+ 		                             GROUP BY Managers.FirstName
+ 	                             ) a
+                             )";
+
+            ExecuteQueryWithNoParameters(query);
+        }
+
+        private void ex4_3button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void ex4_4button_Click(object sender, RoutedEventArgs e)
+        {
+            string query = @"SELECT Sales.CustomerFirmName FROM Sales
+                             LEFT JOIN Stationaries ON Stationaries.Id = Sales.StationaryId
+                             GROUP BY Sales.CustomerFirmName
+                             HAVING SUM(Stationaries.SoldProductNumber * Stationaries.Price) = (
+	                             SELECT MAX(sums) FROM (
+		                             SELECT SUM(Stationaries.SoldProductNumber * Stationaries.Price) AS sums FROM Stationaries
+		                             LEFT JOIN Sales ON Sales.StationaryId = Stationaries.Id
+		                             GROUP BY Sales.CustomerFirmName
+	                             ) a
+                             )";
+
+            ExecuteQueryWithNoParameters(query);
+        }
+
+        private void ex4_5button_Click(object sender, RoutedEventArgs e)
+        {
+            string query = @"SELECT Types.TypeName FROM Types
+                             LEFT JOIN Stationaries ON Stationaries.StationaryType = Types.Id
+                             GROUP BY Types.TypeName
+                             HAVING SUM(Stationaries.SoldProductNumber) = (
+	                             SELECT MAX(sums) FROM (
+		                             SELECT SUM (Stationaries.SoldProductNumber) AS sums FROM Stationaries
+		                             LEFT JOIN Types ON Types.Id = Stationaries.StationaryType
+		                             GROUP BY Types.TypeName
+	                             ) a
+                             )";
+
+            ExecuteQueryWithNoParameters(query);
+        }
+
+        private void ex4_6button_Click(object sender, RoutedEventArgs e)
+        {
+            string query = @"SELECT Types.TypeName FROM Types
+                             LEFT JOIN Stationaries ON Stationaries.StationaryType = Types.Id
+                             GROUP BY Types.TypeName
+                             HAVING SUM(Stationaries.SoldProductNumber * Stationaries.Price) = (
+	                             SELECT MAX(sums) FROM (
+		                             SELECT SUM (Stationaries.SoldProductNumber * Stationaries.Price) AS sums FROM Stationaries
+		                             LEFT JOIN Types ON Types.Id = Stationaries.StationaryType
+		                             GROUP BY Types.TypeName
+	                             ) a
+                             )";
+
+            ExecuteQueryWithNoParameters(query);
+        }
+
+        private void ex4_7button_Click(object sender, RoutedEventArgs e)
+        {
+            string query = @"SELECT Stationaries.StationarieName FROM Stationaries
+                             GROUP BY Stationaries.StationarieName
+                             HAVING SUM(Stationaries.SoldProductNumber) = (
+	                             SELECT MAX(sums) FROM (
+		                             SELECT SUM (Stationaries.SoldProductNumber) AS sums FROM Stationaries
+		                             GROUP BY Stationaries.StationarieName
+	                             ) a
+                             )";
+
+            ExecuteQueryWithNoParameters(query);
+        }
     }
 }
